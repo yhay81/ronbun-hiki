@@ -1,0 +1,29 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "ronbun-hiki",
+  "main": "src/worker.tsx",
+  "compatibility_date": "2026-07-29",
+  "workers_dev": false,
+  "preview_urls": false,
+  "routes": [
+    {
+      "pattern": "ronbun-hiki.yhay81.com",
+      "custom_domain": true,
+    },
+  ],
+  "triggers": { "crons": ["11 21 * * *"] },
+  "observability": { "enabled": true },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "ronbun-hiki",
+      "database_id": "cec7b680-89b8-4429-a06f-b20aff9f20bd",
+      "migrations_dir": "migrations",
+    },
+  ],
+  "durable_objects": {
+    "bindings": [{ "name": "CROSSREF_GATE", "class_name": "CrossrefGate" }],
+  },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["CrossrefGate"] }],
+  "assets": { "directory": "./public", "binding": "ASSETS" },
+}
